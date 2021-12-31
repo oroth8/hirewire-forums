@@ -11,11 +11,18 @@ class DiscussionsControllerTest < ActionDispatch::IntegrationTest
     @discussion = Discussion.create(name: 'Test discussion').save!
   end
 
-  test 'should get index' do
+  test 'should get index and render discussions' do
     get discussions_path
     assert_response :success
     assert_template :index
     assert_template partial: '_discussion', count: 3
     assert_not_nil @discussion
+  end
+
+  test 'should get new and create a discussion' do
+    get new_discussion_path
+    assert_response :success
+    assert_template :new
+    assert_template partial: '_form', count: 1
   end
 end
