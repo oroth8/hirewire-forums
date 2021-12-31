@@ -4,10 +4,10 @@ one:
   name: MyString
   pinned: false
   closed: false
-  user: one
+  user: 1
 
 two:
   name: MyString
   pinned: false
   closed: false
-  user: two
+  user: 1
