@@ -9,10 +9,18 @@ class CreatDiscussionsTest < ActionDispatch::IntegrationTest
 
   test 'invalid discussion creation' do
     get new_discussion_path
-    assert_no_difference 'User.count' do
+    assert_no_difference 'Discussion.count' do
       post discussions_path, params: { discussion: { name: '' } }
     end
     assert_template :new
     assert_select 'div#error_explanation'
+  end
+
+  test 'valid discussion creation' do
+    get new_discussion_path
+    assert_difference 'Discussion.count', +1 do
+      post discussions_path, params: { discussion: { name: 'valid discussion', closed: true, pinned: false } }
+    end
+    assert_redirected_to discussions_path
   end
 end
