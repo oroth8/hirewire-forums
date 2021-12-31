@@ -20,4 +20,13 @@ class EditDiscussionsTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to discussions_path
   end
+
+  test 'valid discussion destroy' do
+    get discussions_path
+    assert_select 'a[href=?]', '/discussions/980190963/edit'
+    assert_difference 'Discussion.count', -1 do
+      delete discussion_path(@discussion)
+    end
+    assert_redirected_to discussions_path
+  end
 end
