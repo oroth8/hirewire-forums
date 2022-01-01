@@ -21,6 +21,6 @@ class CreatDiscussionsTest < ActionDispatch::IntegrationTest
     assert_difference 'Discussion.count', +1 do
       post discussions_path, params: { discussion: { name: 'valid discussion', closed: true, pinned: false } }
     end
-    assert_redirected_to discussions_path
+    assert_redirected_to 'http://www.example.com/discussions/980190963-valid-discussion'
   end
 end
