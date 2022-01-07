@@ -23,7 +23,14 @@ module Discussions
 
       respond_to do |format|
         if @post.save
-          format.html { redirect_to discussion_path(@discussion), notice: 'Post created' }
+          if params.dig('post', 'redirect').present?
+            @pagy, @posts = pagy(@discussion.posts.order(created_at: :desc), items: 3)
+            format.html { redirect_to discussion_path(@discussion, page: @pagy.last), notice: 'Post created' }
+          else
+            @post = @discussion.posts.new
+            format.turbo_stream
+          end
+
         else
           format.turbo_stream
           format.html { render :new, status: :unprocessable_entity }
