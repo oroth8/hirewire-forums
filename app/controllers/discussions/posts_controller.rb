@@ -30,7 +30,6 @@ module Discussions
             @post = @discussion.posts.new
             format.turbo_stream
           end
-
         else
           format.turbo_stream
           format.html { render :new, status: :unprocessable_entity }
