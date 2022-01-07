@@ -3,11 +3,11 @@ class DiscussionsController < ApplicationController
   before_action :set_discussion, only: %i[show edit destroy update]
 
   def index
-    @pagy, @discussions = pagy(Discussion.includes(:category).pinned_first, items: 1)
+    @pagy, @discussions = pagy(Discussion.includes(:category).pinned_first)
   end
 
   def show
-    @pagy, @posts = pagy(@discussion.posts.includes(:user, :rich_text_body).order(created_at: :asc), items: 3)
+    @pagy, @posts = pagy(@discussion.posts.includes(:user, :rich_text_body).order(created_at: :asc))
     @new_post = @discussion.posts.new
   end
 

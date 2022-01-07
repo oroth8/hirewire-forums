@@ -24,7 +24,7 @@ module Discussions
       respond_to do |format|
         if @post.save
           if params.dig('post', 'redirect').present?
-            @pagy, @posts = pagy(@discussion.posts.order(created_at: :desc), items: 3)
+            @pagy, @posts = pagy(@discussion.posts.order(created_at: :desc))
             format.html { redirect_to discussion_path(@discussion, page: @pagy.last), notice: 'Post created' }
           else
             @post = @discussion.posts.new
